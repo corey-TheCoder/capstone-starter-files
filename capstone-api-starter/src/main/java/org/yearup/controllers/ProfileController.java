@@ -3,13 +3,13 @@ package org.yearup.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.yearup.models.Profile;
 import org.yearup.service.ProfileService;
+import org.yearup.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,14 +17,17 @@ import java.util.List;
 @CrossOrigin
 public class ProfileController {
     private ProfileService profileService;
+    private UserService userService;//tells the user
 
-    public ProfileController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService, UserService userService) {
         this.profileService = profileService;
+        this.userService = userService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Profile>> getAll(){
-        List<Profile> profiles = profileService.getAll();
-        return new ResponseEntity<>(profiles, HttpStatus.OK);
+    public Profile getProfile(Principal principal)
+    {
+        String userName = principal.getName();
+        return null;
     }
 }
